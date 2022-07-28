@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { clearHistory } from "../redux/actions/calculator";
+import { clearHistory } from "../redux-toolkit/features/calculator/calculator-slice";
+import { RootState } from "../redux-toolkit/store";
 
 const CalculatorButtons = () => {
   const { history } = useSelector((store: RootState) => store.calculator);

@@ -1,7 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import { ChangeEvent } from "react";
-import { setFirst, setSecond } from "../redux/actions/calculator";
+import { RootState } from "../redux-toolkit/store";
+import {
+  setFirst,
+  setSecond,
+} from "../redux-toolkit/features/calculator/calculator-slice";
 
 const CalculatorForm = () => {
   const dispatch = useDispatch();

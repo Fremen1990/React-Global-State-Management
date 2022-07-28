@@ -1,14 +1,17 @@
 import { Operation } from "./Calculator";
-import { RootState } from "../redux/store";
+import { RootState } from "../redux-toolkit/store";
 import { useDispatch, useSelector } from "react-redux";
-import { addToHistory, setResult } from "../redux/actions/calculator";
+import {
+  addToHistory,
+  setResult,
+} from "../redux-toolkit/features/calculator/calculator-slice";
 
 const CalculatorArithmeticsButtons = () => {
   const { first, second } = useSelector((store: RootState) => store.calculator);
 
   const dispatch = useDispatch();
 
-  const handleSetOperationResult = (result: number | string) => {
+  const handleSetOperationResult = (result: number) => {
     dispatch(setResult(result));
   };
 
@@ -43,7 +46,7 @@ const CalculatorArithmeticsButtons = () => {
       }
       case Operation.DIVIDE: {
         if (second === 0) {
-          handleSetOperationResult("Cannot divide by 0");
+          // handleSetOperationResult("Cannot divide by 0");
           handleAddHistory(
             `Tried to divide ${first} / ${second} but dividing by 0 is prohibited`
           );

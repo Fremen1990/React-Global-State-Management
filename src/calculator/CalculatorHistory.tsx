@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { RootState } from "../redux-toolkit/store";
 
 const CalculatorHistory = () => {
   const { history } = useSelector((store: RootState) => store.calculator);
