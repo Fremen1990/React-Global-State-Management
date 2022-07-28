@@ -1,13 +1,14 @@
-interface Props {
-  setOperationResult: (result: number | string) => void;
-  first: number;
-  second: number;
-  addToHistory: (line: string) => void;
-  clearHistory: () => void;
-  history: string[];
-}
+import { useContext } from "react";
+import { CalculatorContext } from "./Calculator";
 
-const CalculatorButtons = ({ clearHistory, history }: Props) => {
+const CalculatorButtons = () => {
+  const context = useContext(CalculatorContext);
+
+  // check if context exists
+  if (!context) return null;
+
+  const { clearHistory, history } = context;
+
   return (
     <>
       <button
