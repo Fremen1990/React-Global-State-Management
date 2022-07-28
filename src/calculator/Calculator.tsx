@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, createContext } from "react";
 import CalculatorForm from "./CalculatorForm";
 import CalculatorResult from "./CalculatorResult";
 import CalculatorButtons from "./CalculatorButtons";
@@ -12,10 +12,26 @@ export enum Operation {
   DIVIDE,
 }
 
+interface CalculatorContextType {
+  first: number;
+  second: number;
+  result: number | string | undefined;
+  history: string[];
+  addToHistory: (line: string) => void;
+  clearHistory: () => void;
+  handleFirstChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSecondChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setOperationResult: (operationResult: number | string) => void;
+}
+
+export const CalculatorContext = createContext<CalculatorContextType | null>(
+  null
+);
+
 const Calculator = () => {
   const [first, setFirst] = useState<number>(0);
   const [second, setSecond] = useState<number>(0);
-  const [result, setResult] = useState<number | string>(0);
+  const [result, setResult] = useState<number | string>("");
   const [history, setHistory] = useState<string[]>([]);
 
   const handleFirstChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,34 +55,25 @@ const Calculator = () => {
 
   return (
     <div>
-      <CalculatorForm
-        first={first}
-        second={second}
-        handleFirstChange={handleFirstChange}
-        handleSecondChange={handleSecondChange}
-      />
-
-      <CalculatorArithmeticsButtons
-        first={first}
-        second={second}
-        setOperationResult={setOperationResult}
-        addToHistory={addToHistory}
-        history={history}
-        clearHistory={clearHistory}
-      />
-
-      <CalculatorButtons
-        first={first}
-        second={second}
-        setOperationResult={setOperationResult}
-        addToHistory={addToHistory}
-        history={history}
-        clearHistory={clearHistory}
-      />
-
-      <CalculatorResult first={first} second={second} result={result} />
-
-      <CalculatorHistory history={history} />
+      <CalculatorContext.Provider
+        value={{
+          first,
+          second,
+          result,
+          history,
+          addToHistory,
+          clearHistory,
+          setOperationResult,
+          handleFirstChange,
+          handleSecondChange,
+        }}
+      >
+        <CalculatorForm />
+        <CalculatorArithmeticsButtons />
+        <CalculatorButtons />
+        <CalculatorResult />
+        <CalculatorHistory />
+      </CalculatorContext.Provider>
     </div>
   );
 };

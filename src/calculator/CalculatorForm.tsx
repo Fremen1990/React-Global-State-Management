@@ -1,18 +1,29 @@
-interface Props {
-    first: number;
-    second: number;
-    handleFirstChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    handleSecondChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-}
+import { useContext } from "react";
+import { CalculatorContext } from "./Calculator";
 
-const CalculatorForm = ({first, second, handleFirstChange, handleSecondChange}: Props) => {
+const CalculatorForm = () => {
+  const context = useContext(CalculatorContext);
 
+  // check if context exists
+  if (!context) return null;
 
-    return <>
-        <input style={{fontSize: 24, width: 100}} type="number" value={first} onChange={handleFirstChange}/>
-        <input style={{fontSize: 24, width: 100}} type="number" value={second} onChange={handleSecondChange}/>
+  const { first, second, handleFirstChange, handleSecondChange } = context;
 
-
+  return (
+    <>
+      <input
+        style={{ fontSize: 24, width: 100 }}
+        type="number"
+        value={first}
+        onChange={handleFirstChange}
+      />
+      <input
+        style={{ fontSize: 24, width: 100 }}
+        type="number"
+        value={second}
+        onChange={handleSecondChange}
+      />
     </>
-}
-export default CalculatorForm
+  );
+};
+export default CalculatorForm;
